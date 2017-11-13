@@ -22,13 +22,13 @@ if(Ftype=="video"){
     $("section#picture div#title3 div:nth-child(4)").children("h4").html(JSON.parse(LFile).upuser);
     $("section#picture div#title3 div:nth-child(5)").children("h4").html(JSON.parse(LFile).uptime);
     if(Ftype=="image"){
-        $("section#picture img").attr("src","img/pic1.jpg");
+        $("section#picture img").attr("src","assets/img/pic1.jpg");
     }else if(Ftype=="zip"){
-        $("section#picture img").attr("src","img/zip.jpg");
+        $("section#picture img").attr("src","assets/img/zip.jpg");
     }else if(Ftype=="document"){
-        $("section#picture img").attr("src","img/txt.png");
+        $("section#picture img").attr("src","assets/img/txt.png");
     }else if(Ftype=="other"){
-        $("section#picture img").attr("src","img/txt.png");
+        $("section#picture img").attr("src","assets/img/txt.png");
     }
 }
 
@@ -75,11 +75,11 @@ function Toggle(){
     var btnToggle = document.getElementById('buttonPlayAndPause');
     if(flag===false){
         play();
-        btnToggle.style.backgroundImage='url(img/jtbq_013.png)';
+        btnToggle.style.backgroundImage='url(assets/img/jtbq_013.png)';
         flag=true;
     }else{
         pause();
-        btnToggle.style.backgroundImage='url(img/jtbq_014.png)';
+        btnToggle.style.backgroundImage='url(assets/img/jtbq_014.png)';
         flag=false;
     }
 }
