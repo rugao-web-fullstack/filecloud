@@ -80,7 +80,7 @@ $(".tab-pane tbody tr").hover(function () {
 $("tbody tr").on("click", function () {
     var fileName = $(this).children("td:eq(0)").children("a").html();
     // console.log(fileName);
-    $.getJSON("json/file.json", function (data) {
+    $.getJSON("data/json/file.json", function (data) {
         for (var i = 0; i < data.length; i++) {
             if (data[i].name == fileName) {
                 window.localStorage.setItem('file', JSON.stringify(data[i]));
@@ -90,7 +90,7 @@ $("tbody tr").on("click", function () {
     });
 });
 
-$.getJSON("json/file.json", function (data) {
+$.getJSON("data/json/file.json", function (data) {
     var Varr = [];
     var Iarr = [];
     var Darr = [];
