@@ -1,4 +1,9 @@
 //---localStorage
+if(window.localStorage.getItem("register")){
+    var Register =  window.localStorage.getItem("register");
+    var SE = JSON.parse(Register).username;
+    $("#dLabel").text(SE);
+}
 var LFile = window.localStorage.getItem("file");
 var Ftype =JSON.parse(LFile).type;
 if(Ftype=="video"){

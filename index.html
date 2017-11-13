@@ -3,30 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <title>云分享</title>
-    <link rel="stylesheet" href="http://cdn.bootcss.com/twitter-bootstrap/3.0.3/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="assets/css/jquery-ui.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/index.css">
 </head>
 <body>
 <nav class="navbar navbar-default navbar-fixed-top til">
-    <div class="container-fluid">
+    <div class="container">
         <div class="navbar-header">
+            <button class="navbar-toggle myNavbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
             <a class="navbar-brand" href="#">
-                <img alt="" src="img/cloud.png">
+                <img alt="" src="assets/img/cloud.png">
                 <span>云分享</span>
             </a>
         </div>
-    </div>
-    <div class="container">
-        <ul class="nav nav-pills navbar-left">
-            <li role="presentation"><a href="#int">项目介绍</a></li>
-            <li role="presentation"><a href="#pro">项目理念</a></li>
-            <li role="presentation"><a href="#file">热门文件</a></li>
-            <li role="presentation"><a href="#hot">分类热门</a></li>
-        </ul>
-        <ul class="nav nav-pills navbar-right">
-            <li><a href="#">注册</a></li>
-            <li><a href="#">登录</a></li>
-        </ul>
+        <div class="navbar-collapse collapse">
+            <ul class="nav nav-pills navbar-left">
+                <li role="presentation"><a href="#int">项目介绍</a></li>
+                <li role="presentation"><a href="#pro">项目理念</a></li>
+                <li role="presentation"><a href="#file">热门文件</a></li>
+                <li role="presentation"><a href="#hot">分类热门</a></li>
+            </ul>
+            <ul class="nav nav-pills navbar-right">
+                <li><a href="register.html">注册</a></li>
+                <li><a href="login.html">登录</a></li>
+            </ul>
+        </div>
     </div>
 </nav>
 <div class="container bg">
@@ -37,11 +43,11 @@
 <div class="container int">
     <h1>项目介绍</h1>
     <div class="row">
-        <div class="col-lg-1"></div>
-        <div class="col-lg-2 text-center">
-            <img src="img/save.png" alt="">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-2 text-center">
+            <img src="assets/img/save.png" alt="">
         </div>
-        <div class="panel panel-default col-lg-7">
+        <div class="panel panel-default col-sm-7">
             <div class="panel-body">
                 <p>
                     提供拥有灵活性和按需功能的新一代存储服务，从而防止了成本失控，并能满足不断变化的业务重心及法规要求所形成的多样化需求。
@@ -50,11 +56,11 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-1"></div>
-        <div class="col-lg-2 text-center">
-            <img src="img/share.png" alt="">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-2 text-center">
+            <img src="assets/mg/share.png" alt="">
         </div>
-        <div class="panel panel-default col-lg-7">
+        <div class="panel panel-default col-sm-7">
             <div class="panel-body">
                 <p>
                     数据保管箱项目已经在国内开展了一定时间，取得用户的认可，为解决非结构化数据不断增长带来的挑战，旨在通过网络平台，展示开放整合式存储技术如何与云计算一同演化。
@@ -63,11 +69,11 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-1"></div>
-        <div class="col-lg-2 text-center">
-            <img src="img/file.png" alt="">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-2 text-center">
+            <img src="assets/img/file.png" alt="">
         </div>
-        <div class="panel panel-default col-lg-7">
+        <div class="panel panel-default col-sm-7">
             <div class="panel-body">
                 <p>
                     为进一步推出云存储产品，提升下载速度和服务容量，需要引进SAN技术，同时结合国际部分技术，完成基于数据保管箱产品的云存储服务，研究开发内容。
@@ -80,67 +86,67 @@
 <div class="container pro">
     <h1>项目理念</h1>
     <div class="row">
-        <div class="col-lg-1"></div>
-        <div class="col-lg-5">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-5">
             <h2>云存储，用云分享就够了</h2>
             <p>随时随地 办公如此轻松全终端覆盖,随时随地分享数据与协同办公，多种共享方式，即时消息通知，帮助工作高效完成</p>
             <p>7×24小时 我们永远在线为您服务专属售后经理，7x24小时随时解决您使用过程中的疑问服务50类行业，千锤百炼打造极致用户体验10年专业云服务运营，我们做到对您始终如一</p>
         </div>
-        <div class="col-lg-5 text-center">
-            <img src="img/pro.png"/>
+        <div class="col-sm-5 text-center">
+            <img src="assets/img/pro.png"/>
         </div>
     </div>
 </div>
 <a name="file"></a>
-<div class="container file">
+<div class="container-fluid file">
     <h1>热门文件</h1>
     <ul class="row">
-        <li class="col-lg-3 text-center">
-            <img src="img/f1.jpg" alt="">
+        <li class="col-md-3 col-sm-4 col-xs-6 text-center">
+            <img src="assets/img/f1.jpg" alt="">
             <p class="text-center">文件名：<span>倒霉熊</span></p>
         </li>
-        <li class="col-lg-3 text-center">
-            <img src="img/f1.jpg" alt="">
+        <li class="col-md-3 col-sm-4 col-xs-6 text-center">
+            <img src="assets/img/f1.jpg" alt="">
             <p class="text-center">文件名：<span>倒霉蛋</span></p>
         </li>
-        <li class="col-lg-3 text-center">
-            <img src="img/f1.jpg" alt="">
+        <li class="col-md-3 col-sm-4 col-xs-6 text-center">
+            <img src="assets/img/f1.jpg" alt="">
             <p class="text-center">文件名：<span>倒霉熊</span></p>
         </li>
-        <li class="col-lg-3 text-center">
-            <img src="img/f1.jpg" alt="">
+        <li class="col-md-3 col-sm-4 col-xs-6 text-center">
+            <img src="assets/img/f1.jpg" alt="">
             <p class="text-center">文件名：<span>倒霉熊</span></p>
         </li>
-        <li class="col-lg-3 text-center">
-            <img src="img/f1.jpg" alt="">
+        <li class="col-md-3 col-sm-4 col-xs-6 text-center">
+            <img src="assets/img/f1.jpg" alt="">
             <p class="text-center">文件名：<span>倒霉熊</span></p>
         </li>
-        <li class="col-lg-3 text-center">
-            <img src="img/f1.jpg" alt="">
+        <li class="col-md-3 col-sm-4 col-xs-6 text-center">
+            <img src="assets/img/f1.jpg" alt="">
             <p class="text-center">文件名：<span>倒霉熊</span></p>
         </li>
-        <li class="col-lg-3 text-center">
-            <img src="img/f1.jpg" alt="">
+        <li class="col-md-3 col-sm-4 col-xs-6 text-center">
+            <img src="assets/img/f1.jpg" alt="">
             <p class="text-center">文件名：<span>倒霉熊</span></p>
         </li>
-        <li class="col-lg-3 text-center">
-            <img src="img/f1.jpg" alt="">
+        <li class="col-md-3 col-sm-4 col-xs-6 text-center">
+            <img src="assets/img/f1.jpg" alt="">
             <p class="text-center">文件名：<span>倒霉熊</span></p>
         </li>
-        <li class="col-lg-3 text-center">
-            <img src="img/f2.jpg" alt="">
+        <li class="col-md-3 col-sm-4 col-xs-6 text-center">
+            <img src="assets/img/f2.jpg" alt="">
             <p class="text-center">文件名：<span>倒霉熊</span></p>
         </li>
-        <li class="col-lg-3 text-center">
-            <img src="img/f2.jpg" alt="">
+        <li class="col-md-3 col-sm-4 col-xs-6 text-center">
+            <img src="assets/img/f2.jpg" alt="">
             <p class="text-center">文件名：<span>倒霉熊</span></p>
         </li>
-        <li class="col-lg-3 text-center">
-            <img src="img/f2.jpg" alt="">
+        <li class="col-md-3 col-sm-4 col-xs-6 text-center">
+            <img src="assets/img/f2.jpg" alt="">
             <p class="text-center">文件名：<span>倒霉熊</span></p>
         </li>
-        <li class="col-lg-3 text-center">
-            <img src="img/f2.jpg" alt="">
+        <li class="col-md-3 col-sm-4 col-xs-6 text-center">
+            <img src="assets/img/f2.jpg" alt="">
             <p class="text-center">文件名：<span>倒霉熊</span></p>
         </li>
     </ul>
@@ -148,7 +154,7 @@
 <a name="hot"></a>
 <div class="container hot">
     <h1>分类热门</h1>
-    <div class="col-lg-3 text-left ">
+    <div class="col-sm-3 text-left Video">
         <div>
             <h4>热门视频</h4>
             <a class="more" name="video">更多>></a>
@@ -247,7 +253,7 @@
             </li>
         </ul>
     </div>
-    <div class="col-lg-3 text-left ">
+    <div class="col-sm-3 text-left Audio">
         <div>
             <h4>热门音频</h4>
             <a class="more"  name="audio">更多>></a>
@@ -346,7 +352,7 @@
             </li>
         </ul>
     </div>
-    <div class="col-lg-3 text-left ">
+    <div class="col-sm-3 text-left Image">
         <div>
             <h4>热门图片</h4>
             <a class="more"  name="image">更多>></a>
@@ -445,7 +451,7 @@
             </li>
         </ul>
     </div>
-    <div class="col-lg-3 text-left ">
+    <div class="col-sm-3 text-left Document">
         <div>
             <h4>热门文章</h4>
             <a class="more" name="document">更多>></a>
@@ -549,9 +555,9 @@
     <hr>
     <div class="text-center">&copy;云分享</div>
 </footer>
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/index.js"></script>
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/index.js"></script>
 
 </body>
 </html>
