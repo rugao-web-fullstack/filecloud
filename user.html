@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户文件管理</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link href="https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap-grid.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap-reboot.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/4.0.0-beta/js/bootstrap.js"></script>
+    <style>
+        /*头部*/
+        nav {
+            height: 70px;
+            color: white;
+            background: url("assets/img/bg4.jpg");
+        }
+
+        nav > div:nth-child(2) {
+            line-height: 70px;
+        }
+
+        nav > div:nth-child(2) > i {
+            position: relative;
+            top: 5px;
+        }
+
+        nav > div > a {
+            float: right;
+            margin-right: 2rem;
+            color: white;
+        }
+
+        nav > div > a:hover {
+            color: lightskyblue;
+        }
+
+        .yun {
+            font-size: 30px;
+            font-weight: 700;
+            font-family: '仿宋';
+        }
+
+        a, a:hover {
+            text-decoration: none;
+        }
+
+        a {
+            color: black;
+        }
+
+        a:hover {
+            color: grey;
+        }
+
+        .left {
+            /*height: 1000px;*/
+            background: #EFF4F8;
+        }
+
+        ul li {
+            cursor: pointer;
+        }
+
+        ul.list-group {
+            margin-top: 1rem;
+        }
+
+        .list-group-item {
+            padding-left: 3.5rem;
+        }
+
+        .list-group-item:nth-child(1) {
+            padding-left: 2rem;
+        }
+
+        .list-group-item.active {
+            color: #3b8cff;
+            background-color: #E3E8EB;
+            border-color: #E3E8EB;
+        }
+
+        .list-group-item {
+            background-color: #EFF4F8;
+            border: none;
+        }
+
+        ul li:hover {
+            background: #E3E8EB;
+        }
+
+        .right-header {
+            margin-top: 1.3rem;
+        }
+
+        .right-header > button {
+            cursor: pointer;
+            width: 8rem;
+            margin-left: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .right-header > button.btn-default {
+            color: #4D96FF;
+            background-color: #fff;
+            border: 1px solid #c0d9fe;
+        }
+
+        .right-header > button.btn-default:hover {
+            color: #77Afff;
+        }
+
+        .dl {
+            padding: 1rem;
+            border-radius: 15px;
+            border: 1px solid lightgrey;
+            display: none;
+        }
+
+        .dl a, .dl span {
+            color: gray;
+        }
+
+        /*文件*/
+        #files {
+            position: absolute;
+            left: 2em;
+            top: 1.3em;
+            width: 8rem;
+            height: 2.3rem;
+            opacity: 0;
+        }
+
+        /*图片*/
+        .photo {
+            overflow-y: auto;
+        }
+
+        #smImg div img {
+            width: 100%;
+        }
+
+        /*选中*/
+        #smImg div {
+            display: inline-block;
+            position: relative;
+            border: 3px solid lightgrey;
+            border-radius: 5px;
+            padding: 1px;
+            width: 18rem;
+            margin: 1rem 0.2rem 0rem 0.3rem;
+        }
+
+        #smImg div a {
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: block;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        input {
+            width: 1.3rem;
+            height: 1.3rem;
+            margin: .4rem 0 0 0.2rem;
+        }
+
+        /*预览*/
+        .show {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 2;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+        }
+
+        .photo .show .pre {
+            position: absolute;
+            top: 45%;
+            left: 2rem;
+            font-size: 4rem;
+        }
+
+        .photo .show .next {
+            position: absolute;
+            top: 45%;
+            right: 2rem;
+            font-size: 4rem;
+        }
+
+        .photo .show .bigimg {
+            position: absolute;
+            margin: auto;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            width: auto;
+        }
+
+        /*文档*/
+        .doc-container {
+            line-height: 32px;
+        }
+
+        .doc-tag {
+            color: #FFAA00;
+            margin-right: 20px;
+        }
+
+        /*视频*/
+        .vd {
+            display: none;
+            margin: auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: auto;
+            height: auto;
+        }
+
+        .close {
+            margin-top: 1rem;
+            margin-right: 2rem;
+            font-size: 3.5rem;
+            color: white;
+        }
+
+        .video-container {
+            line-height: 32px;
+        }
+
+        .video label, .doc label, .zip label, .other label {
+            position: absolute;
+            margin-left: 28px;
+        }
+
+        .video-tag {
+            margin-top: 8px;
+            margin-right: 20px;
+            float: left;
+            color: #8183F1;
+        }
+
+        .vdname {
+            float: left;
+        }
+
+        .vdname:hover,
+        .zipname:hover,
+        .othername:hover,
+        .docname:hover {
+            color: #3C8CFF;
+        }
+
+        /*音频*/
+        .audio-container {
+            line-height: 32px;
+        }
+
+        .audio-container span {
+            cursor: pointer;
+        }
+
+        .audio-container img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .audio-container .play img {
+            cursor: pointer;
+        }
+
+        .audio-name:hover {
+            color: #3C8CFF;
+        }
+
+        .music-tag {
+            margin-left: 20px;
+            margin-right: 20px;
+            color: #EB8789;
+        }
+
+        /*压缩包*/
+        .zip-container {
+            line-height: 32px;
+        }
+
+        .zip-tag {
+            color: #80CD46;
+            margin-right: 20px;
+        }
+
+        /*其他*/
+        .other-container {
+            line-height: 32px;
+        }
+
+        .other-tag {
+            color: #A83EDC;
+            margin-right: 20px;
+        }
+
+        /*表格字体大小*/
+        table {
+            font-size: 0.8rem;
+            font-family: "Microsoft YaHei UI";
+        }
+
+        table th {
+            font-weight: normal;
+        }
+
+        /*分享*/
+        .share-type {
+            padding-left: 2.5rem;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            display: none;
+            border: 2px solid lightskyblue;
+            border-radius: 5px;
+        }
+
+        .org {
+            line-height: 32px;
+        }
+
+        .page {
+            float: right;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar">
+    <div class="col-0 col-sm-1 col-md-1 col-lg-1 col-xl-1">
+
+    </div>
+    <div class="col-6 col-sm-5 col-md-4 col-lg-3 col-xl-2">
+        <i class="fa fa-cloud fa-2x"></i>
+        <a href="#" class="yun">云分享</a>
+    </div>
+    <div class="col-1 col-sm-1 col-md-2 col-lg-3 col-xl-5">
+
+    </div>
+    <div class="col-5 col-sm-4 col-md-4 col-lg-3 col-xl-2">
+        <a href="index.html" id="back">退出</a>
+        <a href="#" id="user"></a>
+    </div>
+    <div class="col-0 col-sm-1 col-md-1 col-lg-2 col-xl-1">
+
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <!--左边-->
+        <div class="col-lg-3  col-md-3 col-sm-4 col-xl-2 col-12 left">
+            <ul class="list-group">
+                <li class="active list-group-item"><i class="fa fa-file-text-o"></i>&nbsp;&nbsp;全部文件</li>
+                <li class="list-group-item"><i class="fa fa-image"></i>&nbsp;&nbsp;图片</li>
+                <li class="list-group-item"><i class="fa fa-folder-o"></i>&nbsp;&nbsp;文档</li>
+                <li class="list-group-item"><i class="fa fa-video-camera"></i>&nbsp;&nbsp;视频</li>
+                <li class="list-group-item"><i class="fa fa-music"></i>&nbsp;&nbsp;音乐</li>
+                <li class="list-group-item"><i class="fa fa-file-zip-o"></i>&nbsp;&nbsp;压缩包</li>
+                <li class="list-group-item"><i class="fa fa-code"></i>&nbsp;&nbsp;其他</li>
+            </ul>
+            <div class="bdsharebuttonbox share-type"><a href="#" class="bds_more" data-cmd="more"></a><a href="#"
+                                                                                                         class="bds_qzone"
+                                                                                                         data-cmd="qzone"
+                                                                                                         title="分享到QQ空间"></a><a
+                    href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_renren"
+                                                                                       data-cmd="renren"
+                                                                                       title="分享到人人网"></a></div>
+        </div>
+        <!--右边-->
+        <div class="col-lg-9 col-md-9 col-sm-8 col-xl-10  col-12 border-black">
+            <!--头部按钮部分-->
+            <div class="right-header">
+                <button type="button" class="btn btn-primary"><i class="fa fa-upload"></i> 上传</button>
+                <input type="file" id="files">
+                <button type="button" class="btn btn-default down"><i class="fa fa-download"></i> 离线下载</button>
+                <button type="button" class="btn btn-default  delete"><i class="fa fa-trash-o"></i> 删除</button>
+                <button type="button" class="btn btn-default" id="share"><i class="fa fa-share-square-o"></i> 分享
+                </button>
+            </div>
+            <!--全部文件-->
+            <div class="dl all">
+                <table class="table table-hover  mx-0" id="table">
+                    <thead class="col-12">
+                    <tr class="row mx-0">
+                        <th class="col-1 col-xl-1 col-sm-1 text-center border-bottom-0"></th>
+                        <th class="col-4 col-xl-5 col-sm-4 border-bottom-0">文件名</th>
+                        <th class="col-3 col-xl-3 col-sm-3 border-bottom-0">文件大小</th>
+                        <th class="col-4 col-xl-3 col-sm-4 border-bottom-0">修改日期</th>
+                    </tr>
+                    </thead>
+                    <!--模板-->
+                    <thead class="col-12 all-container">
+                    <tr class="row mx-0">
+                        <th class="col-1 col-xl-1 col-sm-1 text-center border-bottom-0"><input type="checkbox"
+                                                                                               class="checkbox"></th>
+                        <th class="col-4 col-xl-5 col-sm-4 border-bottom-0 org"><a href="">movie1.mp4</a></th>
+                        <th class="col-3 col-xl-3 col-sm-3 border-bottom-0 org">866kb</th>
+                        <th class="col-4 col-xl-3 col-sm-4 border-bottom-0 org">2017-11-11 16:17:24</th>
+                    </tr>
+                    </thead>
+                    <thead class="col-12 all-container">
+                    <tr class="row mx-0">
+                        <th class="col-1 col-xl-1 col-sm-1 text-center border-bottom-0"><input type="checkbox"
+                                                                                               class="checkbox"></th>
+                        <th class="col-4 col-xl-5 col-sm-4 border-bottom-0 org"><a href="">tfboys.mp3</a></th>
+                        <th class="col-3 col-xl-3 col-sm-3 border-bottom-0 org">124kb</th>
+                        <th class="col-4 col-xl-3 col-sm-4 border-bottom-0 org">2017-11-11 16:20:24</th>
+                    </tr>
+                    </thead>
+                    <thead class="col-12 all-container">
+                    <tr class="row mx-0">
+                        <th class="col-1 col-xl-1 col-sm-1 text-center border-bottom-0"><input type="checkbox"
+                                                                                               class="checkbox"></th>
+                        <th class="col-4 col-xl-5 col-sm-4 border-bottom-0 org"><a href="">yangyan.txt</a></th>
+                        <th class="col-3 col-xl-3 col-sm-3 border-bottom-0 org">43kb</th>
+                        <th class="col-4 col-xl-3 col-sm-4 border-bottom-0 org">2017-11-11 17:17:09</th>
+                    </tr>
+                    </thead>
+                    <thead class="col-12 all-container">
+                    <tr class="row mx-0">
+                        <th class="col-1 col-xl-1 col-sm-1 text-center border-bottom-0"><input type="checkbox"
+                                                                                               class="checkbox"></th>
+                        <th class="col-4 col-xl-5 col-sm-4 border-bottom-0 org"><a href="">网络环境下的图书馆管理系统.zip</a></th>
+                        <th class="col-3 col-xl-3 col-sm-3 border-bottom-0 org">544kb</th>
+                        <th class="col-4 col-xl-3 col-sm-4 border-bottom-0 org">2017-11-12 18:13:11</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+                <div class="page">
+                    <button class="btn btn-default">1</button>
+                    <button class="btn btn-default">2</button>
+                </div>
+            </div>
+            <!--图片-->
+            <div class="dl photo">
+                <div id="smImg">
+                    <div class="imgAct">
+                        <a href="#"><input class='check' type="checkbox" name="" id="" value=""/></a>
+                        <img src="assets/img/14.jpg"/>
+                    </div>
+                    <div class="imgAct">
+                        <a href="#"><input class='check' type="checkbox" name="" id="" value=""/></a>
+                        <img src="assets/img/15.jpg"/>
+                    </div>
+                    <div class="imgAct">
+                        <a href="#"><input class='check' type="checkbox" name="" id="" value=""/></a>
+                        <img src="assets/img/16.jpg"/>
+                    </div>
+                    <div class="imgAct">
+                        <a href="#"><input class='check' type="checkbox" name="" id="" value=""/></a>
+                        <img src="assets/img/17.jpg"/>
+                    </div>
+                    <div class="imgAct">
+                        <a href="#"><input class='check' type="checkbox" name="" id="" value=""/></a>
+                        <img src="assets/img/5.jpg"/>
+                    </div>
+                    <i></i>
+                </div>
+                <div class="page">
+                    <button class="btn btn-default">1</button>
+                    <button class="btn btn-default">2</button>
+                </div>
+                <div class="show">
+                    <a href="#" class='pre'><i class="fa fa-chevron-circle-left"></i></a>
+                    <a href="#" class='next'><i class="fa fa-chevron-circle-right"></i></a>
+                    <a href="#" class='close'><i class="fa fa-window-close"></i></a>
+                    <img class='bigimg' src=""/>
+                </div>
+            </div>
+            <!--文档-->
+            <div class="dl doc">
+                <table class="table table-hover  mx-0" id="table-txt">
+                    <thead class="col-12">
+                    <tr class="row mx-0">
+                        <th class="col-1 col-xl-1 col-sm-1 text-center border-bottom-0"></th>
+                        <th class="col-4 col-xl-5 col-sm-4 border-bottom-0">文件名</th>
+                        <th class="col-3 col-xl-3 col-sm-3 border-bottom-0">文件大小</th>
+                        <th class="col-4 col-xl-3 col-sm-4 border-bottom-0">修改日期</th>
+                    </tr>
+                    </thead>
+                    <!--模板-->
+                    <!--<thead class="col-12">-->
+                    <!--<tr class="row mx-0">-->
+                    <!--<th class="col-1 col-xl-1 col-sm-1 text-center border-bottom-0"><input type="checkbox"></th>-->
+                    <!--<th class="col-4 col-xl-5 col-sm-4 border-bottom-0">文件名</th>-->
+                    <!--<th class="col-3 col-xl-3 col-sm-3 border-bottom-0">文件大小</th>-->
+                    <!--<th class="col-4 col-xl-3 col-sm-4 border-bottom-0">修改日期</th>-->
+                    <!--</tr>-->
+                    <!--</thead>-->
+                </table>
+            </div>
+            <!--视频-->
+            <div class="dl video">
+                <div class="video-container">
+                    <input type="checkbox" class="checkbox"/>
+                    <label class="clearfix vdparent">
+                        <i class="fa fa-file-video-o video-tag"></i>
+                        <a href="#" class="vdname">movie0.mp4</a>
+                        <!--<i class="fa fa-trash" class="trash"></i>-->
+                    </label>
+                </div>
+                <div class="video-container">
+                    <input type="checkbox" class="checkbox"/>
+                    <label class="clearfix  vdparent">
+                        <i class="fa fa-file-video-o video-tag"></i>
+                        <a href="#" class="vdname">movie1.mp4</a>
+                    </label>
+                </div>
+                <div class="video-container">
+                    <input type="checkbox" class="checkbox"/>
+                    <label class="clearfix  vdparent">
+                        <i class="fa fa-file-video-o video-tag"></i>
+                        <a href="#" class="vdname">movie2.mp4</a>
+                    </label>
+                </div>
+                <div class="video-container">
+                    <input type="checkbox" class="checkbox"/>
+                    <label class="clearfix  vdparent">
+                        <i class="fa fa-file-video-o video-tag"></i>
+                        <a href="#" class="vdname">movie3.mp4</a>
+                    </label>
+                </div>
+                <div class="page">
+                    <button class="btn btn-default">1</button>
+                    <button class="btn btn-default">2</button>
+                </div>
+                <div class="show">
+                    <a href="#" class="close"><i class="fa fa-window-close"></i></a>
+                    <video src="data/video/movie1.mp4" controls="controls" class="vd">您的浏览器不支持 video 标签。</video>
+                </div>
+            </div>
+            <!--音乐-->
+            <div class="dl music">
+                <div class="row audio-container">
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-xl-5  col-5">
+                        <input type="checkbox" class="checkbox">
+                        <i class="fa fa-music music-tag"></i>
+                        <audio src="data/audio/bigbang.mp3" class="audios"></audio>
+                        <span class="audio-name">bigbang.mp3</span>
+                    </div>
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-xl-5  col-3 play">
+                        <img src="assets/img/play.png" alt="" class="playImg">
+                        <img src="assets/img/stop.png" alt="" class="stopImg">
+                    </div>
+                    <!--<div class="col-lg-2 col-md-2 col-sm-2 col-xl-2  col-2">-->
+                    <!--<a href=""><i class="fa fa-trash" class="delete"></i></a>-->
+                    <!--</div>-->
+                </div>
+                <div class="row audio-container">
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-xl-5  col-5">
+                        <input type="checkbox" class="checkbox">
+                        <i class="fa fa-music music-tag"></i>
+                        <audio src="data/audio/TFBOYS.mp3" class="audios"></audio>
+                        <span class="audio-name">TFBOYS.mp3</span>
+                    </div>
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-xl-5  col-5 play">
+                        <img src="assets/img/play.png" alt="" class="playImg">
+                        <img src="assets/img/stop.png" alt="" class="stopImg">
+                    </div>
+                </div>
+                <div class="row audio-container">
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-xl-5  col-5">
+                        <input type="checkbox" class="checkbox">
+                        <i class="fa fa-music music-tag"></i>
+                        <audio src="data/audio/bigbang.mp3" class="audios"></audio>
+                        <span class="audio-name">bigbang.mp3</span>
+                    </div>
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-xl-5  col-5 play">
+                        <img src="assets/img/play.png" alt="" class="playImg">
+                        <img src="assets/img/stop.png" alt="" class="stopImg">
+                    </div>
+                </div>
+                <div class="page">
+                    <button class="btn btn-default">1</button>
+                    <button class="btn btn-default">2</button>
+                </div>
+            </div>
+            <!--压缩包-->
+            <div class="dl zip">
+                <div class="zip-container">
+                    <input type="checkbox" class="checkbox"/>
+                    <label class="clearfix">
+                        <i class="fa fa-file-archive-o zip-tag"></i>
+                        <a href="#" class="zipname">网络环境下的图书馆管理系统.zip</a>
+                    </label>
+                </div>
+                <div class="zip-container">
+                    <input type="checkbox" class="checkbox"/>
+                    <label class="clearfix">
+                        <i class="fa fa-file-archive-o zip-tag"></i>
+                        <a href="#" class="zipname">网络环境下的图书馆管理系统.zip</a>
+                    </label>
+                </div>
+                <div class="zip-container">
+                    <input type="checkbox" class="checkbox"/>
+                    <label class="clearfix">
+                        <i class="fa fa-file-archive-o zip-tag"></i>
+                        <a href="#" class="zipname">网络环境下的图书馆管理系统.zip</a>
+                    </label>
+                </div>
+                <div class="zip-container">
+                    <input type="checkbox" class="checkbox"/>
+                    <label class="clearfix">
+                        <i class="fa fa-file-archive-o zip-tag"></i>
+                        <a href="#" class="zipname">网络环境下的图书馆管理系统.zip</a>
+                    </label>
+                </div>
+                <i></i>
+                <div class="page">
+                    <button class="btn btn-default">1</button>
+                    <button class="btn btn-default">2</button>
+                </div>
+            </div>
+            <!--其他-->
+            <div class="dl other">
+                <div class="other-container">
+                    <input type="checkbox" class="checkbox"/>
+                    <label class="clearfix">
+                        <i class="fa fa-file-code-o other-tag"></i>
+                        <a href="#" class="othername">1-2---window属性--frame-iframe.html</a>
+                    </label>
+                </div>
+                <div class="other-container">
+                    <input type="checkbox" class="checkbox"/>
+                    <label class="clearfix">
+                        <i class="fa  fa-file-code-o other-tag"></i>
+                        <a href="#" class="othername">myPackage.js</a>
+                    </label>
+                </div>
+                <div class="other-container">
+                    <input type="checkbox" class="checkbox"/>
+                    <label class="clearfix">
+                        <i class="fa fa-file-code-o other-tag"></i>
+                        <a href="#" class="othername">3-10---原型（prototype）模式--原型重写.html</a>
+                    </label>
+                </div>
+                <div class="other-container">
+                    <input type="checkbox" class="checkbox"/>
+                    <label class="clearfix">
+                        <i class="fa  fa-file-code-o other-tag"></i>
+                        <a href="#" class="othername">index.css</a>
+                    </label>
+                </div>
+                <div class="page">
+                    <button class="btn btn-default">1</button>
+                    <button class="btn btn-default">2</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    //---设置对应的点击事件
+    $(function () {
+        var act;
+        $('.all').css('display', 'block');
+        $(".list-group li").click(function () {
+            $(".list-group li").removeClass('active');
+            $(this).addClass('active');
+            act = $(this).index();
+            $('.dl').css('display', 'none');
+            switch (act) {
+                case 0:
+                    $('.all').css('display', 'block');
+                    break;
+                case 1:
+                    $('.photo').css('display', 'block');
+                    break;
+                case 2:
+                    $('.doc').css('display', 'block');
+                    break;
+                case 3:
+                    $('.video').css('display', 'block');
+                    break;
+                case 4:
+                    $('.music').css('display', 'block');
+                    break;
+                case 5:
+                    $('.zip').css('display', 'block');
+                    break;
+                case 6:
+                    $('.other').css('display', 'block');
+                    break;
+            }
+        })
+    });
+    //获取登录的用户名
+    $(function () {
+        console.log(localStorage.getItem("username"));
+        $('#user').html("<i class=\"fa fa-user-o\" aria-hidden=\"true\"></i>\n" + localStorage.getItem("username"));
+    })
+    //---设置高度
+    $(function () {
+        //---设置左边高度为可见窗口高度
+        $('.left').css('height', window.innerHeight);
+
+        //---设置右边内容高度=可见窗口高度-头部总高度
+        $('.dl').css('height', window.innerHeight - $('.right-header').outerHeight(true));
+
+    });
+
+    //---监听页面改变时的高度
+    $(window).resize(function () {
+        //---设置左边高度为可见窗口高度
+        $('.left').css('height', window.innerHeight);
+
+        //---设置右边内容高度=可见窗口高度-头部总高度
+        $('.dl').css('height', window.innerHeight - $('.right-header').outerHeight(true));
+
+    });
+    //------------全部文件------------
+    $(function () {
+        // =======删除=======
+        $(".delete").on("click", function () {
+            $(".all-container .checkbox").each(function (index, ele) {
+                if ($(this).attr("checked") == "checked") {
+                    $(this).parents('.all-container').remove();
+                }
+            })
+        });
+        $(".delete").on("click", function () {
+            $(".aaa .checkbox").each(function (index, ele) {
+                if ($(this).attr("checked") == "checked") {
+                    $(this).parents('.aaa').remove();
+                }
+            })
+        });
+        // ==========下载===========
+        $('.down').on('click', function () {
+            $(".all-container .checkbox").each(function (index, ele) {
+                if ($(this).attr("checked") == "checked") {
+                    var name = $(this).parents('.all-container').children('tr').children('th').children('a').text();
+                    alert('恭喜你！下载' + name + '成功！');
+                }
+            })
+        });
+        $('.down').on('click', function () {
+            $(".aaa .checkbox").each(function (index, ele) {
+                if ($(this).attr("checked") == "checked") {
+                    var name = $(this).parents('.aaa').children().eq(1).text();
+                    alert('恭喜你！下载' + name + '成功！');
+                }
+            })
+        });
+    })
+    //--------------图片
+    $(function () {
+        var preIndex;
+        $('#smImg').on('click', '.imgAct', function () {
+            var path = $(this).find('img')[0].src;
+            $('.show').css('display', 'block');
+            $('.bigimg').attr('src', path);
+            preIndex = $(this).index();
+            console.log(preIndex);
+        })
+
+        $('.pre').on('click', function () {
+            if (preIndex <= 0) {
+                alert('抱歉，已经没有更多了！')
+            } else {
+                preIndex = --preIndex;
+//				console.log(preIndex);
+                var Src = $(".imgAct:eq(" + preIndex + ")").find('img')[0].src;
+                $('.bigimg').attr('src', Src);
+            }
+        });
+
+        $('.next').on('click', function () {
+            var imgLength = $('#smImg .imgAct').length;
+            if (preIndex >= imgLength - 1) {
+                alert('抱歉，已经是最后一张了！')
+            } else {
+                preIndex = ++preIndex;
+                console.log(preIndex);
+                var Src = $(".imgAct:eq(" + preIndex + ")").find('img')[0].src;
+                $('.bigimg').attr('src', Src);
+            }
+        });
+
+        $('.show .close').on('click', function () {
+            $('.show').css('display', 'none');
+        });
+
+        //图片选中删除
+        $('#smImg').on('mouseenter', '.imgAct', function () {
+            $(this).find('a').css('display', 'block');
+        });
+        $('#smImg').on('mouseleave', '.imgAct', function () {
+            $(this).find('a').css('display', 'none');
+        });
+        //这个绑定事件在动态添加的节点中不起作用？？？？？？？？
+        //必须用动态添加之前的已存在的父节点来绑定事件
+        $('#smImg').on('click', '.check', function (event) {
+            //阻止事件冒泡
+            event.stopPropagation()
+            if ($(this).attr('checked') == 'checked') {
+//				event.preventDefault();
+                $(this).parents('.imgAct').css('border', '3px solid #3b8cff');
+//				$(this).parent('.imgAct').off('mouseleave');
+//				$('#smImg').off('mouseleave',$(this).parent('.imgAct'));
+//				console.log($(this));
+//				console.log($(this).parent('.imgAct'));
+
+            } else {
+                $(this).parents('.imgAct').css('border', '3px solid lightgrey');
+            }
+        });
+        $('.delete').on('click', function () {
+            $('.imgAct input').each(function (index, ele) {
+                if ($(this).attr('checked') == 'checked') {
+                    $(this).parents('.imgAct').remove();
+                }
+            });
+        });
+        $('.down').on('click', function () {
+            $('.imgAct input').each(function (index, ele) {
+                if ($(this).attr('checked') == 'checked') {
+//					var name=$(this).parents('.imgAct').find('img')[0].src;
+                    var name = $(this).parents('.imgAct').find('img').attr('src');
+                    alert('恭喜你！下载' + name + '成功！');
+//                  return false;
+                }
+            });
+        });
+
+    });
+
+    //---视频-----------
+    $(function () {
+        $('.video').on('click', '.vdname', function (e) {
+//            var act = $(this).children('.video-container').children('label').children('a').text();
+//            var act =  $(e.target).text();//第二种获取当前对象的方法
+            var act = $(this).text();
+//          alert(act);
+            var Src = 'data/video/' + act;
+            $('.vd').attr('src', Src);
+            $('.video .show').css('display', 'block');
+            $('.vd').css('display', 'block');
+            $('.vdname').css('display', 'none');
+        });
+
+        $('.close').on('click', function () {
+            $('.video .show').css('display', 'none');
+            $('.vd').css('display', 'none');
+            $('.vdname').css('display', 'block');
+            $('.vd').trigger('pause');
+        })
+        // =======删除=======
+        $(".delete").on("click", function () {
+            $(".video-container .checkbox").each(function (index, ele) {
+                if ($(this).attr("checked") == "checked") {
+                    $(this).parents('.video-container').remove();
+                }
+            })
+        })
+        // ==========下载===========
+        $('.down').on('click', function () {
+            $(".video-container .checkbox").each(function (index, ele) {
+                if ($(this).attr("checked") == "checked") {
+                    var name = $(this).parents('.video-container').children('label').children('a').text();
+                    alert('恭喜你！下载' + name + '成功！');
+                    return false;
+                }
+            })
+        })
+    });
+
+    //---音频
+    $(function () {
+        var flag = true;
+        $(".play .playImg").each(function (index, ele) {
+            $(this).on("click", function () {
+                if (flag == true) {
+                    this.src = "assets/img/pause.png";
+                    $(this).parent().prev().children()[2].play();
+//                    $(".audios")[0].play();
+                    flag = false;
+                    return;
+                }
+                if (flag == false) {
+                    this.src = "assets/img/play.png";
+                    $(this).parent().prev().children()[2].pause();
+                    flag = true;
+                    return;
+                }
+            })
+        })
+        $(".play .stopImg").each(function () {
+            $(this).on("click", function (index, ele) {
+                $(this).parent().prev().children()[2].pause();
+                $(this).parent().prev().children()[2].currentTime = 0;
+                console.log($(this).prev().attr("src"));
+                $(this).prev().attr("src", "assets/img/play.png");
+                flag = true;
+            })
+        })
+        //=======删除===========
+        $(".delete").on("click", function () {
+            $(".audio-container .checkbox").each(function (index, ele) {
+                if ($(this).attr("checked") == "checked") {
+                    $(this).parents('.audio-container').remove();
+                }
+            })
+        })
+        // ==========下载===========
+        $('.down').on('click', function () {
+            $(".audio-container .checkbox").each(function (index, ele) {
+                if ($(this).attr("checked") == "checked") {
+                    var name = $(this).parents('.audio-container').children().children('span').text();
+                    alert('恭喜你！下载' + name + '成功！');
+                }
+            })
+        })
+    });
+
+    //--------------压缩包-------------
+    $(function () {
+        $(".delete").on("click", function () {
+            $(".zip-container .checkbox").each(function (index, ele) {
+                if ($(this).attr("checked") == "checked") {
+                    $(this).parents('.zip-container').remove();
+                }
+            })
+        })
+        // ==========下载===========
+        $('.down').on('click', function () {
+            $(".zip-container .checkbox").each(function (index, ele) {
+                if ($(this).attr("checked") == "checked") {
+                    var name = $(this).parents('.zip-container').children('label').children('a').text();
+                    alert('恭喜你！下载' + name + '成功！');
+                    return false;
+                }
+            })
+        })
+    })
+    //----------其他--------------------
+    $(function () {
+        $(".delete").on("click", function () {
+            $(".other-container .checkbox").each(function (index, ele) {
+                if ($(this).attr("checked") == "checked") {
+                    $(this).parents('.other-container').remove();
+                }
+            })
+        })
+        // ==========下载===========
+        $('.down').on('click', function () {
+            $(".other-container .checkbox").each(function (index, ele) {
+                if ($(this).attr("checked") == "checked") {
+                    var name = $(this).parents('.other-container').children('label').children('a').text();
+                    alert('恭喜你！下载' + name + '成功！');
+                    return false;
+                }
+            })
+        })
+    })
+    //-------------文档------------
+    $(function () {
+        $(".delete").on("click", function () {
+            $(".doc-container .checkbox").each(function (index, ele) {
+                if ($(this).attr("checked") == "checked") {
+                    $(this).parents('.doc-container').remove();
+                }
+            })
+        });
+        // ==========下载===========
+        $('.down').on('click', function () {
+            $(".doc-container .checkbox").each(function (index, ele) {
+                if ($(this).attr("checked") == "checked") {
+                    var name = $(this).parents('.doc-container').children('label').children('a').text();
+                    alert('恭喜你！下载' + name + '成功！');
+                    return false;
+                }
+            })
+        })
+    })
+    //===========单选框，复选框======
+    //  $('input').iCheck({
+    //      checkboxClass: 'icheckbox_square-blue',
+    //      radioClass: 'iradio_square-blue',
+    //      increaseArea: '20%' // optional
+    //  });
+    //-------获取文件信息-----------
+    var nameArray = [];
+    var sizeArray = [];
+    var typeArray = [];
+    var timeArray = [];
+
+    $(function () {
+        $('#files').change(function () {
+            var f = document.getElementById('files').files[0];
+            for (var key in f) {
+//                console.log(key + ":" + f[key]);
+                if (key == 'name') {
+                    var name = f[key];
+                    console.log("name:" + f[key]);
+                    nameArray.push(f[key]);
+                }
+                if (key == 'size') {
+                    var size = f[key];
+//                    console.log("size:" + f[key]);
+                    sizeArray.push(f[key]);
+                }
+                if (key == 'type') {
+                    var type = f[key];
+//                    console.log("type:" + f[key]);
+                    typeArray.push(f[key]);
+                }
+            }
+
+
+            for (var i = 0; i < nameArray.length; i++) {
+                console.log("nameArray为：" + nameArray[i]);
+            }
+
+            function p(s) {
+                return s < 10 ? '0' + s : s;
+            }
+
+            var myDate = new Date();
+            //获取当前年
+            var year = myDate.getFullYear();
+            //获取当前月
+            var month = myDate.getMonth() + 1;
+            //获取当前日
+            var date = myDate.getDate();
+            var h = myDate.getHours();       //获取当前小时数(0-23)
+            var m = myDate.getMinutes();     //获取当前分钟数(0-59)
+            var s = myDate.getSeconds();
+
+            var now = year + '-' + p(month) + "-" + p(date) + " " + p(h) + ':' + p(m) + ":" + p(s);
+//            console.log("uptime:" + now);
+            timeArray.push(now);
+
+            //---将数据存入localstroage
+            var localstroage = window.localStorage;
+//            console.log(nameArray);
+            localstroage.setItem('name', nameArray);
+//            console.log(sizeArray);
+            localstroage.setItem('size', sizeArray);
+//            console.log(typeArray);
+            localstroage.setItem('type', typeArray);
+//            console.log(timeArray);
+            localstroage.setItem('uptime', timeArray);
+
+            //---清空tbody后进行添加
+            $('tbody').remove();
+            for (var i = 0; i < nameArray.length; i++) {
+                var tablerow = '<tbody class="col-12">\n' +
+                    '                    <tr class="row mx-0 aaa">\n' +
+                    '                        <td class="col-1 col-xl-1 col-sm-1 text-center"><input type="checkbox" class="checkbox"></td>\n' +
+                    '                        <td class="col-4 col-xl-5 col-sm-4 ">' + nameArray[i] + '</td>\n' +
+                    '                        <td class="col-3 col-xl-3 col-sm-3 ">' + (sizeArray[i] / 1024).toFixed(1) + ' kB' + '</td>\n' +
+                    '                        <td class="col-4 col-xl-3 col-sm-4 ">' + timeArray[i] + '</td>\n' +
+                    '                    </tr>\n' +
+                    '                    </tbody>';
+//                console.log(tablerow);
+                $('#table').append(tablerow);
+            }
+
+
+            var nameArr = [];
+            var typeArr = [];
+            nameArr = localStorage.name.split(',');
+            typeArr = localStorage.type.split(',');
+            var typeLength = typeArr.length;
+//			alert(localStorage.name);
+//			alert(localStorage.type);
+            //上传图片
+            $('#smImg').children('i').nextAll().remove();
+            for (var i = 0; i < typeLength; i++) {
+                if (typeArr[i] == 'image/jpeg') {
+//          		alert(nameArr[i]);
+                    var addImg = '<div class="imgAct">\n' +
+                        '	<a href="#"><input class="check" type="checkbox" name="" id="" value="" /></a>\n' +
+                        '	<img src="assets/img/' + nameArr[i] + '"/>\n' +
+                        '</div>';
+                    $('#smImg').append(addImg);
+                }
+            }
+            //上传视频
+            $('.video').children('.show').nextAll().remove();
+            for (var i = 0; i < typeLength; i++) {
+                if (typeArr[i] == 'video/mp4') {
+                    var addVideo = '<div class="video-container">' +
+                        '	<input type="checkbox" class="checkbox"/>' +
+                        '	<label class="clearfix  vdparent">' +
+                        '	<i class="fa fa-file-video-o video-tag"></i>' +
+                        '	<a href="#" class="vdname">' + nameArr[i] + '</a>' +
+                        '	</label>' +
+                        '</div>';
+                    $('.video').append(addVideo);
+                }
+            }
+            //上传音频
+            $('.music').children('i').nextAll().remove();
+            for (var i = 0; i < typeLength; i++) {
+                if (typeArr[i] == 'audio/mp3') {
+//          		alert(nameArr[i]);
+                    var addAud = '<div class="row audio-container">' +
+                        '<div class="col-lg-5 col-md-5 col-sm-5 col-xl-5  col-5">' +
+                        '    <input type="checkbox" class="checkbox">' +
+                        '    <i class="fa fa-music music-tag"></i>' +
+                        '    <audio src="data/audio/' + nameArr[i] + '" class="audios"></audio>' +
+                        '    <span class="audio-name">' + nameArr[i] + '</span>' +
+                        '</div>' +
+                        '<div class="col-lg-5 col-md-5 col-sm-5 col-xl-5  col-5 play">' +
+                        '    <img src="assets/img/play.png" alt="" class="playImg">' +
+                        '    <img src="assets/img/stop.png" alt="" class="stopImg">' +
+                        '</div>' +
+                        '</div>';
+                    $('.music').append(addAud);
+                }
+            }
+            //压缩包
+            $('.zip').children('i').nextAll().remove();
+            for(var i=0;i<typeLength;i++){
+                if(typeArr[i]==''){
+//          		alert(nameArr[i]);
+                    var addTar='<div class="zip-container">'+
+                        '    <input type="checkbox" class="checkbox"/>'+
+                        '    <label class="clearfix">'+
+                        '        <i class="fa fa-file-archive-o zip-tag"></i>'+
+                        '        <a href="#" class="zipname">'+nameArr[i]+'</a>'+
+                        '    </label>'+
+                        '</div>';
+
+                    $('.zip').append(addTar);
+                }
+            }
+            //上传文档
+            for (var i = 0; i < typeLength; i++) {
+                if (typeArr[i] == 'audio/mp3') {
+//          		alert(nameArr[i]);
+                    var addAud = '<div class="row audio-container">' +
+                        '<div class="col-lg-5 col-md-5 col-sm-5 col-xl-5  col-5">' +
+                        '    <input type="checkbox" class="checkbox">' +
+                        '    <i class="fa fa-music music-tag"></i>' +
+                        '    <audio src="audio/' + nameArr[i] + '" class="audios"></audio>' +
+                        '    <span class="audio-name">' + nameArr[i] + '</span>' +
+                        '</div>' +
+                        '<div class="col-lg-5 col-md-5 col-sm-5 col-xl-5  col-5 play">' +
+                        '    <img src="assets/img/play.png" alt="" class="playImg">' +
+                        '    <img src="assets/img/stop.png" alt="" class="stopImg">' +
+                        '</div>' +
+                        '</div>';
+                    $('.music').append(addAud);
+                }
+            }
+
+            for (var i = 0; i < nameArray.length; i++) {
+//                console.log(nameArray[i]);
+                if (nameArray[i].indexOf('txt') > 0) {
+//                    console.log(nameArray[i]+":"+i);
+                    var tablerow = '<tbody class="col-12">\n' +
+                        '                    <tr class="row mx-0">\n' +
+                        '                        <td class="col-1 col-xl-1 col-sm-1 text-center"><input type="checkbox" ></td>\n' +
+                        '                        <td class="col-4 col-xl-5 col-sm-4 ">' + nameArray[i] + '</td>\n' +
+                        '                        <td class="col-3 col-xl-3 col-sm-3 ">' + (sizeArray[i] / 1024).toFixed(1) + ' kB' + '</td>\n' +
+                        '                        <td class="col-4 col-xl-3 col-sm-4 ">' + timeArray[i] + '</td>\n' +
+                        '                    </tr>\n' +
+                        '                    </tbody>';
+//                    console.log(tablerow);
+                    $('#table-txt').append(tablerow);
+                }
+            }
+
+            //---点击相应栏获取文件名，再获取txt内容并弹出
+            $("#table-txt tr td").on('click', function () {
+                var td = $(this).find("td");
+//                console.log(td);
+                var name=td.prevObject[0].innerText;
+//                console.log(name);
+                var url='./file/'+name;
+                $.ajax({
+                    url: url,
+                    dateType: 'text',
+                    success: function (data) {
+                        alert(name + "的内容为： \n  \n" + data);
+                    }
+                });
+            });
+
+        })
+    });
+
+
+</script>
+<!--分享-->
+<script>
+    var timer = null;
+    window._bd_share_config = {
+        "common": {
+            "bdSnsKey": {},
+            "bdText": "",
+            "bdMini": "1",
+            "bdMiniList": false,
+            "bdPic": "",
+            "bdStyle": "2",
+            "bdSize": "24"
+        }, "share": {}
+    };
+    with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+    $('#share').on('click', function () {
+        $('.share-type').fadeIn(500);
+        timer = setTimeout(function () {
+            $('.share-type').css('border', 'none');
+        }, 1000);
+    });
+</script>
+</body>
+</html>

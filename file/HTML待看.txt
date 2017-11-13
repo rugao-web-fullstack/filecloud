@@ -1,0 +1,53 @@
+﻿①clearfix
+②css spirits
+③CSS书写顺序
+④块级/行级元素有哪些
+⑤vertical-align:bottom清除行内块元素的垂直间距（紧贴bottom）
+  左右有间距是因为两个标签之间的空格造成的，只要将<img>	   <img
+						  <img>改成><img>或者设置font-size:0就能清除间距或者设置float:left/right就行
+⑥font-weight  :400;    正常
+font-weight:700；字体加粗
+⑤记得加<a>，别写内联，别用中文
+⑥box-sizing：避免margin，padding，width三者间的相互影响
+⑦section要有标题，不然显示untitle
+⑧使用:after伪元素显示后面的小三角需要在父级容器加position:relative
+⑨display:inline-block是什么呢？相信大家对这个属性并不陌生，根据名字inline-block我们就可以大概猜出它是结合了inline和block两者的特性于一身，简单的说：设置了inline-block属性的元素既拥有了block元素可以设置width和height的特性，又保持了inline元素不换行的特性。
+
+
+☆☆☆    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+☆☆☆    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>jQuery必须在别的JS之前引用才有用
+☆☆☆    <script src="https://cdn.bootcss.com/bootstrap/3.3.
+
+
+img中thumbnail和 responsive一样都有自适应的效果
+
+data-toggle是开关
+指向下面的id的target一定要加#号
+
+
+做响应式尽量别设高，靠padding撑开
+
+鼠标移动时间一定要在function（）的括号里加上ev
+
+<font color='red' face=''>
+
+offsetHeight/Width---盒子的区域（包括边框）
+clientHeight/Width---盒子的可视区（不包括边框）
+
+
+图片轮播问题（多加一张图片是为了起过渡效果）
+
+垂直居中：
+    position: fixed;
+    top:50%;
+    left: 50%;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+
+Node.js把相对路径改成绝对路径后可在任意环境运行：path.join(_dirname,'xxx');
+
+
+//---函数（）---那么到底在使用一个函数时需不需要加上()呢？
+
+函数只要是要调用它进行执行的，都必须加括号。此时，函数实际上等于函数的返回值或者执行效果，当然，有些没有返回值，但已经执行了函数体内的行为，就是说，加括号的，就代表将会执行函数体代码。
+
+不加括号的，都是把函数名称作为函数的指针，一个函数的名称就是这个函数的指针，此时不是得到函数的结果，因为不会运行函数体代码。它只是传递了函数体所在的地址位置，在需要的时候好找到函数体去执行。
