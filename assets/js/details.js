@@ -1,11 +1,9 @@
-
+//---localStorage
 if(window.localStorage.getItem("register")){
     var Register =  window.localStorage.getItem("register");
-    var SE = JSON.parse(Register).email;
+    var SE = JSON.parse(Register).username;
     $("#dLabel").text(SE);
 }
-
-//---localStorage
 var LFile = window.localStorage.getItem("file");
 var Ftype =JSON.parse(LFile).type;
 if(Ftype=="video"){
@@ -77,11 +75,11 @@ function Toggle(){
     var btnToggle = document.getElementById('buttonPlayAndPause');
     if(flag===false){
         play();
-        btnToggle.style.backgroundImage='url(assets/img/jtbq_013.png)';
+        btnToggle.style.backgroundImage='url(img/jtbq_013.png)';
         flag=true;
     }else{
         pause();
-        btnToggle.style.backgroundImage='url(assets/img/jtbq_014.png)';
+        btnToggle.style.backgroundImage='url(img/jtbq_014.png)';
         flag=false;
     }
 }
