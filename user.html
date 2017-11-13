@@ -5,11 +5,20 @@
     <title>用户文件管理</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <!--<link rel="stylesheet" href="css/bootstrap.css">-->
+    <!--<link rel="stylesheet" href="css/font-awesome.css">-->
+    <!--<link rel="stylesheet" href="css/bootstrap-grid.css">-->
+    <!--<link rel="stylesheet" href="css/bootstrap-reboot.css">-->
+    <!--<script src="js/bootstrap.bundle.js"></script>-->
+    <!--<script src="js/jquery-1.8.3.min.js"></script>-->
+    <!--<script src="js/bootstrap.js"></script>-->
+    <!--1.8.3才有效-->
+    <script src="https://cdn.bootcss.com/jquery/1.8.3/jquery.min.js"></script>
     <link href="https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap-grid.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap-reboot.css" rel="stylesheet">
-    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+    <!--<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>-->
     <script src="https://cdn.bootcss.com/bootstrap/4.0.0-beta/js/bootstrap.js"></script>
     <style>
         /*头部*/
@@ -389,7 +398,7 @@
                 <button type="button" class="btn btn-primary"><i class="fa fa-upload"></i> 上传</button>
                 <input type="file" id="files">
                 <button type="button" class="btn btn-default down"><i class="fa fa-download"></i> 离线下载</button>
-                <button type="button" class="btn btn-default  delete"><i class="fa fa-trash-o"></i> 删除</button>
+                <button type="button" class="btn btn-default delete"><i class="fa fa-trash-o"></i> 删除</button>
                 <button type="button" class="btn btn-default" id="share"><i class="fa fa-share-square-o"></i> 分享
                 </button>
             </div>
@@ -454,23 +463,23 @@
             <div class="dl photo">
                 <div id="smImg">
                     <div class="imgAct">
-                        <a href="#"><input class='check' type="checkbox" name="" id="" value=""/></a>
+                        <a href="#"><input class='check' type="checkbox" name=""  value=""/></a>
                         <img src="assets/img/14.jpg"/>
                     </div>
                     <div class="imgAct">
-                        <a href="#"><input class='check' type="checkbox" name="" id="" value=""/></a>
+                        <a href="#"><input class='check' type="checkbox" name=""  value=""/></a>
                         <img src="assets/img/15.jpg"/>
                     </div>
                     <div class="imgAct">
-                        <a href="#"><input class='check' type="checkbox" name="" id="" value=""/></a>
+                        <a href="#"><input class='check' type="checkbox" name=""  value=""/></a>
                         <img src="assets/img/16.jpg"/>
                     </div>
                     <div class="imgAct">
-                        <a href="#"><input class='check' type="checkbox" name="" id="" value=""/></a>
+                        <a href="#"><input class='check' type="checkbox" name=""  value=""/></a>
                         <img src="assets/img/17.jpg"/>
                     </div>
                     <div class="imgAct">
-                        <a href="#"><input class='check' type="checkbox" name="" id="" value=""/></a>
+                        <a href="#"><input class='check' type="checkbox" name=""  value=""/></a>
                         <img src="assets/img/5.jpg"/>
                     </div>
                     <i></i>
@@ -733,6 +742,7 @@
         // =======删除=======
         $(".delete").on("click", function () {
             $(".all-container .checkbox").each(function (index, ele) {
+//                alert(1);
                 if ($(this).attr("checked") == "checked") {
                     $(this).parents('.all-container').remove();
                 }
@@ -869,6 +879,7 @@
         $(".delete").on("click", function () {
             $(".video-container .checkbox").each(function (index, ele) {
                 if ($(this).attr("checked") == "checked") {
+                    alert(1);
                     $(this).parents('.video-container').remove();
                 }
             })
@@ -1134,7 +1145,7 @@
             //压缩包
             $('.zip').children('i').nextAll().remove();
             for(var i=0;i<typeLength;i++){
-                if(typeArr[i]==''){
+                if(typeArr[i]=='application/zip'){
 //          		alert(nameArr[i]);
                     var addTar='<div class="zip-container">'+
                         '    <input type="checkbox" class="checkbox"/>'+
@@ -1148,25 +1159,6 @@
                 }
             }
             //上传文档
-            for (var i = 0; i < typeLength; i++) {
-                if (typeArr[i] == 'audio/mp3') {
-//          		alert(nameArr[i]);
-                    var addAud = '<div class="row audio-container">' +
-                        '<div class="col-lg-5 col-md-5 col-sm-5 col-xl-5  col-5">' +
-                        '    <input type="checkbox" class="checkbox">' +
-                        '    <i class="fa fa-music music-tag"></i>' +
-                        '    <audio src="audio/' + nameArr[i] + '" class="audios"></audio>' +
-                        '    <span class="audio-name">' + nameArr[i] + '</span>' +
-                        '</div>' +
-                        '<div class="col-lg-5 col-md-5 col-sm-5 col-xl-5  col-5 play">' +
-                        '    <img src="assets/img/play.png" alt="" class="playImg">' +
-                        '    <img src="assets/img/stop.png" alt="" class="stopImg">' +
-                        '</div>' +
-                        '</div>';
-                    $('.music').append(addAud);
-                }
-            }
-
             for (var i = 0; i < nameArray.length; i++) {
 //                console.log(nameArray[i]);
                 if (nameArray[i].indexOf('txt') > 0) {
@@ -1190,7 +1182,7 @@
 //                console.log(td);
                 var name=td.prevObject[0].innerText;
 //                console.log(name);
-                var url='./file/'+name;
+                var url='data/file/'+name;
                 $.ajax({
                     url: url,
                     dateType: 'text',
